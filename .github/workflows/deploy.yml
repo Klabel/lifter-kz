@@ -25,7 +25,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
-          server-dir: ./httpdocs/
+          server-dir: ./lifter.kz/
           protocol: ftp
           port: 21
-          dangerous-clean-slate: false # Не удалять файлы, которых нет в git (безопаснее)
+          dangerous-clean-slate: false
