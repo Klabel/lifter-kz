@@ -1,0 +1,43 @@
+---
+// Блок «Наши клиенты» (раньше был только на /catalog). Используется на главной и в каталоге.
+interface Props {
+  showWarranty?: boolean;
+}
+const { showWarranty = false } = Astro.props;
+---
+<section class="py-16 bg-white">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center mb-12">Наши клиенты</h2>
+    <div class="flex flex-wrap justify-center gap-8 md:gap-16 items-center opacity-80 grayscale hover:grayscale-0 transition-all duration-500">
+
+      <!-- Coca-Cola -->
+      <div class="text-center group">
+        <div class="h-24 w-48 bg-gray-50 rounded-xl flex items-center justify-center shadow-sm border border-gray-100 group-hover:border-red-500 transition">
+          <span class="font-black text-2xl text-red-600">Coca-Cola</span>
+        </div>
+        <p class="text-xs text-gray-500 mt-2">CCI Kazakhstan (Астана)</p>
+      </div>
+
+      <!-- Efes -->
+      <div class="text-center group">
+        <div class="h-24 w-48 bg-gray-50 rounded-xl flex items-center justify-center shadow-sm border border-gray-100 group-hover:border-blue-800 transition">
+          <span class="font-black text-2xl text-blue-900">EFES</span>
+        </div>
+        <p class="text-xs text-gray-500 mt-2">Efes Kazakhstan (Караганда)</p>
+      </div>
+
+    </div>
+
+    {showWarranty && (
+      <div class="mt-12 max-w-2xl mx-auto flex items-start gap-4 bg-indigo-50 border border-indigo-100 rounded-2xl p-5 md:p-6">
+        <div class="flex-shrink-0 w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
+        </div>
+        <div>
+          <div class="text-xl font-bold text-gray-900">Гарантия от 6 месяцев</div>
+          <p class="text-gray-600">На погрузчики из нашего <a href="/catalog" class="text-indigo-700 font-semibold hover:underline">каталога техники</a>. Доставка по всему Казахстану.</p>
+        </div>
+      </div>
+    )}
+  </div>
+</section>

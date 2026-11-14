@@ -22,3 +22,7 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# python-окружение для выгрузки аналитики
+analytics/.venv/
+analytics/out/

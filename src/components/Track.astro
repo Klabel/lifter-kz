@@ -1,0 +1,13 @@
+---
+// Обёртка для блока, внимание к которому отслеживается в Метрике.
+// Использование (одна строка):  <Track name="faq"> ...содержимое блока... </Track>
+// Если блок виден на экране 3 секунды и дольше — отправляется цель «attention_<name>»
+// (не чаще одного раза за визит). Сам скрипт наблюдения находится в Layout.astro.
+interface Props {
+  name: string;
+  id?: string;
+  class?: string;
+}
+const { name, id, class: className } = Astro.props;
+---
+<div data-track={name} id={id} class={className}><slot /></div>

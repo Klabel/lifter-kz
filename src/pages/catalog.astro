@@ -1,6 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ForkliftCard from '../components/ForkliftCard.astro';
+import Clients from '../components/Clients.astro';
+import Track from '../components/Track.astro';
 import { getAllForkliftSlugs, getForkliftData } from '../utils/getForkliftData';
 
 const slugs = getAllForkliftSlugs();
@@ -68,8 +70,9 @@ const forklifts = slugs.map(slug => getForkliftData(slug));
     </div>
   </section>
 
-  <!-- Catalog Section -->
-  <section id="catalog" class="py-16">
+  <!-- Catalog Section (цены на технику) -->
+  <Track name="prices">
+  <section id="catalog" class="py-16 scroll-mt-28">
     <div class="container mx-auto px-4">
       <div class="text-center mb-12">
         <h2 class="text-3xl md:text-5xl font-black text-gray-900 mb-4">Каталог техники</h2>
@@ -89,32 +92,10 @@ const forklifts = slugs.map(slug => getForkliftData(slug));
       </div>
     </div>
   </section>
+  </Track>
 
-  <!-- Clients Section -->
-  <section class="py-16 bg-white">
-    <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold text-center mb-12">Наши клиенты</h2>
-        <div class="flex flex-wrap justify-center gap-8 md:gap-16 items-center opacity-80 grayscale hover:grayscale-0 transition-all duration-500">
-            
-            <!-- Coca-Cola -->
-            <div class="text-center group">
-                <div class="h-24 w-48 bg-gray-50 rounded-xl flex items-center justify-center shadow-sm border border-gray-100 group-hover:border-red-500 transition">
-                    <span class="font-black text-2xl text-red-600">Coca-Cola</span>
-                </div>
-                <p class="text-xs text-gray-500 mt-2">CCI Kazakhstan (Астана)</p>
-            </div>
-
-            <!-- Efes -->
-            <div class="text-center group">
-                <div class="h-24 w-48 bg-gray-50 rounded-xl flex items-center justify-center shadow-sm border border-gray-100 group-hover:border-blue-800 transition">
-                    <span class="font-black text-2xl text-blue-900">EFES</span>
-                </div>
-                <p class="text-xs text-gray-500 mt-2">Efes Kazakhstan (Караганда)</p>
-            </div>
-
-        </div>
-    </div>
-  </section>
+  <!-- Clients Section (общий компонент, тот же блок есть на главной) -->
+  <Clients />
 
   <!-- Brands Section -->
   <section class="py-16 bg-gray-100">

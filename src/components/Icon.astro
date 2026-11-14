@@ -1,0 +1,41 @@
+---
+// Простые контурные SVG-иконки (вместо эмодзи). Цвет берётся из текста (currentColor).
+interface Props {
+  name: 'engine' | 'bolt' | 'wheel' | 'drop' | 'mast' | 'nut' | 'road';
+  class?: string;
+}
+const { name, class: className = 'w-6 h-6' } = Astro.props;
+---
+<svg class={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  {name === 'engine' && (
+    <>
+      <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
+    </>
+  )}
+  {name === 'bolt' && <path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" />}
+  {name === 'wheel' && (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <circle cx="12" cy="12" r="3.5" />
+      <path d="M12 3v5.5M12 15.5V21M3 12h5.5M15.5 12H21" />
+    </>
+  )}
+  {name === 'drop' && <path d="M12 2.7s-6 6.6-6 11.3a6 6 0 0012 0c0-4.7-6-11.3-6-11.3z" />}
+  {name === 'mast' && (
+    <>
+      <path d="M6 21V3M12 21V3M6 8h6M6 14h6" />
+      <path d="M12 17h7a2 2 0 012 2v2M12 21h9" />
+    </>
+  )}
+  {name === 'nut' && (
+    <>
+      <path d="M12 2l8.66 5v10L12 22l-8.66-5V7L12 2z" />
+      <circle cx="12" cy="12" r="3.5" />
+    </>
+  )}
+  {name === 'road' && (
+    <>
+      <path d="M4 21l4-18M20 21L16 3M12 5v2M12 11v2M12 17v2" />
+    </>
+  )}
+</svg>

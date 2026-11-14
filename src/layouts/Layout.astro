@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { PHONES, ADDRESS, YM_ID } from '../config/site.js';
 
 interface Props {
   title: string;
@@ -51,13 +52,13 @@ const {
       "name": "ForkliftService",
       "description": description,
       "url": Astro.site,
-      "telephone": "+77017230470",
+      "telephone": PHONES.service.tel,
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "ул. Ермекова 120/2",
-        "addressLocality": "Караганда",
-        "postalCode": "100009",
-        "addressCountry": "KZ"
+        "streetAddress": ADDRESS.street,
+        "addressLocality": ADDRESS.city,
+        "postalCode": ADDRESS.postalCode,
+        "addressCountry": ADDRESS.country
       },
       "areaServed": ["Астана", "Караганда", "Алматы", "Казахстан"]
     })} />
@@ -78,8 +79,29 @@ const {
       gtag('config', 'G-N14S8FRZMD');
       gtag('config', 'AW-960707991');
     </script>
+
+    <!-- Yandex.Metrika: ID берётся из PUBLIC_YM_ID при сборке; без него счётчик не подключается -->
+    {YM_ID && (
+      <script is:inline define:vars={{ ymId: Number(YM_ID) }}>
+        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+        window.LIFTER_YM_ID = ymId;
+        ym(ymId, "init", {
+          clickmap: true,
+          trackLinks: true,
+          accurateTrackBounce: true,
+          webvisor: true
+        });
+      </script>
+    )}
 </head>
 	<body class="font-inter text-gray-900 bg-gray-50 flex flex-col min-h-screen">
+		{YM_ID && (
+			<noscript><div><img src={`https://mc.yandex.ru/watch/${YM_ID}`} style="position:absolute; left:-9999px;" alt="" width="1" height="1" /></div></noscript>
+		)}
 
 		<!-- Header -->
 		<header class="bg-white shadow-md sticky top-0 z-50">
@@ -109,12 +131,12 @@ const {
 				<!-- Contacts & CTA -->
 				<div class="flex items-center w-full justify-between md:w-auto md:flex-col md:items-end md:gap-2">
 					<div class="text-right">
-						<a href="tel:+77017230470" class="block text-lg md:text-xl font-bold text-gray-900 hover:text-indigo-700 transition whitespace-nowrap">
-							+7 (701) 723-04-70
+						<a href={`tel:${PHONES.service.tel}`} class="block text-lg md:text-xl font-bold text-gray-900 hover:text-indigo-700 transition whitespace-nowrap">
+							{PHONES.service.display}
 						</a>
-						<span class="text-xs text-green-600 font-medium block">Сейчас работаем</span>
+						<span class="text-xs font-medium block"><span class="text-gray-500">{PHONES.service.label}</span> · <span class="text-green-600">Сейчас работаем</span></span>
 					</div>
-					<a href="https://wa.me/77017230470" target="_blank" class="bg-green-600 hover:bg-green-700 text-white text-sm font-bold py-2 px-4 rounded-lg shadow-lg transition transform hover:scale-105 md:w-full md:text-center">
+					<a href={`https://wa.me/${PHONES.service.wa}`} target="_blank" class="border-2 border-green-600 text-green-700 hover:bg-green-50 text-sm font-bold py-2 px-4 rounded-lg transition md:w-full md:text-center">
 						WhatsApp
 					</a>
 				</div>
@@ -145,8 +167,8 @@ const {
                     <!-- Legal Info for Google Ads Verification -->
                     <div class="text-xs text-gray-500 border-t border-gray-800 pt-4 mt-4 space-y-1">
                         <p class="font-bold text-gray-400">Владелец сайта: ИП Бублик Николай Витальевич</p>
-                        <p>Адрес: 100009, Казахстан, г. Караганда, ул. Ермекова 120/2</p>
-                        <p>Контакты: +7 (701) 723-04-70</p>
+                        <p>Адрес: {ADDRESS.postalCode}, Казахстан, г. {ADDRESS.city}, {ADDRESS.street}</p>
+                        <p>Контакты: {PHONES.service.display}</p>
                     </div>
 				</div>
 				<div>
@@ -155,15 +177,22 @@ const {
 						<li><a href="/" class="hover:text-white transition">Продажа погрузчиков</a></li>
 						<li><a href="/repair" class="hover:text-white transition">Ремонт и ТО</a></li>
 						<li><a href="/tires" class="hover:text-white transition">Перепрессовка шин</a></li>
-						<li><a href="#" class="hover:text-white transition">Запчасти</a></li>
+						<li><a href="/parts" class="hover:text-white transition">Запчасти</a></li>
 					</ul>
 				</div>
 				<div>
 					<h3 class="text-lg font-bold mb-4 text-gray-200">Контакты</h3>
-					<a href="tel:+77017230470" class="block text-2xl font-bold mb-2 hover:text-blue-400 transition">+7 (701) 723-04-70</a>
+					<div class="mb-4">
+						<span class="block text-xs uppercase tracking-wide text-gray-500">{PHONES.service.label}</span>
+						<a href={`tel:${PHONES.service.tel}`} class="block text-2xl font-bold hover:text-blue-400 transition">{PHONES.service.display}</a>
+					</div>
+					<div class="mb-4">
+						<span class="block text-xs uppercase tracking-wide text-gray-500">{PHONES.parts.label}</span>
+						<a href={`tel:${PHONES.parts.tel}`} class="block text-2xl font-bold hover:text-blue-400 transition">{PHONES.parts.display}</a>
+					</div>
 					<p class="text-gray-400 mb-4">Астана / Караганда</p>
 					<div class="flex justify-center md:justify-start gap-4">
-						<a href="https://wa.me/77017230470" target="_blank" class="text-green-500 hover:text-green-400 font-bold">WhatsApp</a>
+						<a href={`https://wa.me/${PHONES.service.wa}`} target="_blank" class="text-green-500 hover:text-green-400 font-bold">WhatsApp</a>
 						<a href="https://t.me/+77017230470" class="text-blue-500 hover:text-blue-400 font-bold">Telegram</a>
 					</div>
 				</div>
@@ -171,7 +200,7 @@ const {
 		</footer>
 
         <!-- Conversion tracking: phone and WhatsApp separately -->
-        <script is:inline>
+        <script is:inline define:vars={{ partsWa: PHONES.parts.wa }}>
             document.addEventListener('DOMContentLoaded', () => {
                 const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
                 phoneLinks.forEach(link => {
@@ -190,13 +219,25 @@ const {
                     });
                 });
 
+                // Тип WhatsApp: parts — номер запчастей, tires — страница шин, service — остальное (номер сервиса)
+                function waType(link) {
+                    const explicit = link.getAttribute('data-wa-goal'); // например, wa_tires
+                    if (explicit) return explicit.replace(/^wa_/, '');
+                    if ((link.getAttribute('href') || '').indexOf(partsWa) !== -1) return 'parts';
+                    if (location.pathname.indexOf('/tires') === 0) return 'tires';
+                    return 'service';
+                }
+
                 const waLinks = document.querySelectorAll('a[href*="wa.me"], a[href*="whatsapp"]');
                 waLinks.forEach(link => {
                     link.addEventListener('click', function() {
                         if (typeof gtag === 'function') {
+                            const type = waType(link);
+                            // Название события прежнее — чтобы не терять историю; тип — в параметре wa_type
                             gtag('event', 'whatsapp_click', {
                                 'event_category': 'contact',
-                                'event_label': 'whatsapp'
+                                'event_label': 'whatsapp_' + type,
+                                'wa_type': type
                             });
                             gtag('event', 'conversion', {
                                 'send_to': 'AW-960707991/_XiRCJ-Uz5gcEJI7jMoD',
@@ -207,6 +248,92 @@ const {
                     });
                 });
             });
+        </script>
+
+        <!-- Яндекс Метрика: цели по кликам и «внимание к блоку» -->
+        <script is:inline define:vars={{ phones: PHONES }}>
+            // Безопасная отправка цели: если Метрика не подключена — просто ничего не делаем.
+            window.lifterGoal = function (goal, params, asVisitParams) {
+                var id = window.LIFTER_YM_ID;
+                if (!id || typeof window.ym !== 'function') return;
+                if (asVisitParams && params) window.ym(id, 'params', params);
+                window.ym(id, 'reachGoal', goal, params || undefined);
+            };
+
+            function digits(s) { return (s || '').replace(/\D/g, ''); }
+
+            // Клики по телефонам и WhatsApp (делегирование — работает для всех ссылок на странице)
+            document.addEventListener('click', function (e) {
+                var a = e.target.closest && e.target.closest('a[href]');
+                if (!a) return;
+                var href = a.getAttribute('href');
+
+                if (href.indexOf('tel:') === 0) {
+                    var num = digits(href);
+                    var goal = num === digits(phones.parts.tel) ? phones.parts.goal
+                             : num === digits(phones.service.tel) ? phones.service.goal
+                             : 'phone_other';
+                    window.lifterGoal(goal);
+                    return;
+                }
+
+                if (/wa\.me|whatsapp/i.test(href)) {
+                    // Явно заданная цель важнее автоопределения
+                    var waGoal = a.getAttribute('data-wa-goal');
+                    if (!waGoal) {
+                        if (href.indexOf(phones.parts.wa) !== -1) waGoal = 'wa_parts';
+                        else if (location.pathname.indexOf('/tires') === 0) waGoal = 'wa_tires';
+                        else waGoal = 'wa_service';
+                    }
+                    window.lifterGoal(waGoal);
+                }
+            });
+
+            // «Внимание к блоку»: блок с data-track виден ≥ 3 секунд → цель attention_<имя>, раз за визит
+            (function () {
+                if (!('IntersectionObserver' in window)) return;
+                var DELAY = 3000;
+                var KEY = 'lifter_attention_sent';
+                var sent = {};
+                try { sent = JSON.parse(sessionStorage.getItem(KEY) || '{}'); } catch (e) {}
+                function markSent(name) {
+                    sent[name] = 1;
+                    try { sessionStorage.setItem(KEY, JSON.stringify(sent)); } catch (e) {}
+                }
+                var timers = new Map();
+                var observer = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        var el = entry.target;
+                        var name = el.getAttribute('data-track');
+                        // «Виден» = половина блока на экране, либо блок занимает половину экрана (для высоких блоков)
+                        var visible = entry.isIntersecting && (
+                            entry.intersectionRatio >= 0.5 ||
+                            entry.intersectionRect.height >= window.innerHeight * 0.5
+                        );
+                        if (visible && !timers.has(el) && !sent[name]) {
+                            timers.set(el, setTimeout(function () {
+                                timers.delete(el);
+                                if (sent[name]) return;
+                                if (!window.LIFTER_YM_ID) return; // без Метрики не помечаем — отправим, когда подключится
+                                markSent(name);
+                                window.lifterGoal('attention_' + name, { block: name });
+                                observer.unobserve(el);
+                            }, DELAY));
+                        } else if (!visible && timers.has(el)) {
+                            clearTimeout(timers.get(el));
+                            timers.delete(el);
+                        }
+                    });
+                }, { threshold: Array.from({ length: 21 }, function (_, i) { return i / 20; }) });
+
+                function start() {
+                    document.querySelectorAll('[data-track]').forEach(function (el) {
+                        if (!sent[el.getAttribute('data-track')]) observer.observe(el);
+                    });
+                }
+                if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+                else start();
+            })();
         </script>
 
         <!-- Active link highlighting -->
